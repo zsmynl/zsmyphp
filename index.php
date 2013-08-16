@@ -1,11 +1,11 @@
 <?php
-/*Ó¦ÓÃÈë¿ÚÎÄ¼þ
- *ÕâÊÇhomeÏîÄ¿µÄÈë¿ÚÎÄ¼þ£¬²âÊÔÐÞ¸Ä¡£
+/*Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+ *ï¿½ï¿½ï¿½ï¿½homeï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä¡ï¿½
  */
-require dirname(__FILE__).'/config/config.php';//ÒýÈëÅäÖÃÎÄ¼þ¡£
-require dirname(__FILE__).'/common/smarty/Smarty.class.php';//ÒýÈësmartyÎÄ¼þ¡£
-require dirname(__FILE__).'/home/conf/config.php';//ÒýÈëÏîÄ¿ÅäÖÃÎÄ¼þ¡£
-require dirname(__FILE__).'/system/app.php';//ÒýÈëÇý¶¯ÎÄ¼þ¡£
+require dirname(__FILE__).'/config/config.php';//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+require dirname(__FILE__).'/common/smarty/Smarty.class.php';//ï¿½ï¿½ï¿½ï¿½smartyï¿½Ä¼ï¿½ï¿½ï¿½
+require dirname(__FILE__).'/home/conf/config.php';//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+require dirname(__FILE__).'/system/app.php';//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 
 //***********smarty***********
 $smarty = new smarty();
@@ -24,6 +24,7 @@ $smarty->assign("t_dir",$smarty_template_dir);
 $str="aaaaaaaaaa";
 $smarty->assign("str",$str);
 $smarty->display("index/index.html");
+æ”¹å˜ä¸€äº›ã€‚
 */
 ?>
 
