@@ -7,7 +7,6 @@ require dirname(__FILE__).'/common/smarty/Smarty.class.php';//引入smarty文件。
 require dirname(__FILE__).'/home/conf/config.php';//引入项目配置文件。
 require dirname(__FILE__).'/system/app.php';//引入驱动文件。
 
-
 //***********smarty***********
 $smarty = new smarty();
 $smarty->template_dir = $smarty_template_dir;
@@ -26,6 +25,7 @@ $str="aaaaaaaaaa";
 $smarty->assign("str",$str);
 $smarty->display("index/index.html");
 */
+?>
 
 
 
