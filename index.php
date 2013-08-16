@@ -1,6 +1,6 @@
 <?php
 /*应用入口文件
- *
+ *这是home项目的入口文件。
  */
 require dirname(__FILE__).'/config/config.php';//引入配置文件。
 require dirname(__FILE__).'/common/smarty/Smarty.class.php';//引入smarty文件。
