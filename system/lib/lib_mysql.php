@@ -1,22 +1,22 @@
 <?php
 /**
- * MySql æ“ä½œç±»
+ * MySql ²Ù×÷Àà
  */
 final class Mysql {
-	private $db_host; //æ•°æ®åº“ä¸»æœº
-	private $db_user; //æ•°æ®åº“ç”¨æˆ·å
-	private $db_pwd; //æ•°æ®åº“ç”¨æˆ·åå¯†ç 
-	private $db_database; //æ•°æ®åº“å
-	private $conn; //æ•°æ®åº“è¿æ¥æ ‡è¯†;
-	private $result; //æ‰§è¡Œqueryå‘½ä»¤çš„ç»“æœèµ„æºæ ‡è¯†
-	private $sql; //sqlæ‰§è¡Œè¯­å¥
-	private $row; //è¿”å›çš„æ¡ç›®æ•°
-	private $coding; //æ•°æ®åº“ç¼–ç ï¼ŒGBK,UTF8,gb2312
-	private $bulletin = true; //æ˜¯å¦å¼€å¯é”™è¯¯è®°å½•
-	private $show_error = true; //æµ‹è¯•é˜¶æ®µï¼Œæ˜¾ç¤ºæ‰€æœ‰é”™è¯¯,å…·æœ‰å®‰å…¨éšæ‚£,é»˜è®¤å…³é—­
-	private $is_error = false; //å‘ç°é”™è¯¯æ˜¯å¦ç«‹å³ç»ˆæ­¢,é»˜è®¤true,å»ºè®®ä¸å¯ç”¨ï¼Œå› ä¸ºå½“æœ‰é—®é¢˜æ—¶ç”¨æˆ·ä»€ä¹ˆä¹Ÿçœ‹ä¸åˆ°æ˜¯å¾ˆè‹¦æ¼çš„
+	private $db_host; //Êı¾İ¿âÖ÷»ú
+	private $db_user; //Êı¾İ¿âÓÃ»§Ãû
+	private $db_pwd; //Êı¾İ¿âÓÃ»§ÃûÃÜÂë
+	private $db_database; //Êı¾İ¿âÃû
+	private $conn; //Êı¾İ¿âÁ¬½Ó±êÊ¶;
+	private $result; //Ö´ĞĞqueryÃüÁîµÄ½á¹û×ÊÔ´±êÊ¶
+	private $sql; //sqlÖ´ĞĞÓï¾ä
+	private $row; //·µ»ØµÄÌõÄ¿Êı
+	private $coding; //Êı¾İ¿â±àÂë£¬GBK,UTF8,gb2312
+	private $bulletin = true; //ÊÇ·ñ¿ªÆô´íÎó¼ÇÂ¼
+	private $show_error = true; //²âÊÔ½×¶Î£¬ÏÔÊ¾ËùÓĞ´íÎó,¾ßÓĞ°²È«Òş»¼,Ä¬ÈÏ¹Ø±Õ
+	private $is_error = false; //·¢ÏÖ´íÎóÊÇ·ñÁ¢¼´ÖÕÖ¹,Ä¬ÈÏtrue,½¨Òé²»ÆôÓÃ£¬ÒòÎªµ±ÓĞÎÊÌâÊ±ÓÃ»§Ê²Ã´Ò²¿´²»µ½ÊÇºÜ¿àÄÕµÄ
 
-	/*æ„é€ å‡½æ•°*/
+	/*¹¹Ôìº¯Êı*/
 //	public function __construct($db_host, $db_user, $db_pwd, $db_database, $conn, $coding) {
 //		$this->db_host = $db_host;
 //		$this->db_user = $db_user;
@@ -26,7 +26,7 @@ final class Mysql {
 //		$this->coding = $coding;
 //		$this->connect();
 //	}
-        /*åˆå§‹åŒ–å‡½æ•°*/
+        /*³õÊ¼»¯º¯Êı*/
        	public function init($db_host, $db_user, $db_pwd, $db_database, $conn, $coding) {
 		$this->db_host = $db_host;
 		$this->db_user = $db_user;
@@ -36,37 +36,37 @@ final class Mysql {
 		$this->coding = $coding;
 		$this->connect();
 	}
-	/*æ•°æ®åº“è¿æ¥*/
+	/*Êı¾İ¿âÁ¬½Ó*/
 	public function connect() {
 		if ($this->conn == "pconn") {
-			//æ°¸ä¹…é“¾æ¥
+			//ÓÀ¾ÃÁ´½Ó
 			$this->conn = mysql_pconnect($this->db_host, $this->db_user, $this->db_pwd);
 		} else {
-			//å³æ—¶é“¾æ¥
+			//¼´Ê±Á´½Ó
 			$this->conn = mysql_connect($this->db_host, $this->db_user, $this->db_pwd);
 		}
 
 		if (!mysql_select_db($this->db_database, $this->conn)) {
 			if ($this->show_error) {
-				$this->show_error("æ•°æ®åº“ä¸å¯ç”¨ï¼š", $this->db_database);
+				$this->show_error("Êı¾İ¿â²»¿ÉÓÃ£º", $this->db_database);
 			}
 		}
 		mysql_query("SET NAMES $this->coding");
 	}
 
-	/*æ•°æ®åº“æ‰§è¡Œè¯­å¥ï¼Œå¯æ‰§è¡ŒæŸ¥è¯¢æ·»åŠ ä¿®æ”¹åˆ é™¤ç­‰ä»»ä½•sqlè¯­å¥*/
+	/*Êı¾İ¿âÖ´ĞĞÓï¾ä£¬¿ÉÖ´ĞĞ²éÑ¯Ìí¼ÓĞŞ¸ÄÉ¾³ıµÈÈÎºÎsqlÓï¾ä*/
 	public function query($sql) {
 		if ($sql == "") {
-			$this->show_error("SQLè¯­å¥é”™è¯¯ï¼š", "SQLæŸ¥è¯¢è¯­å¥ä¸ºç©º");
+			$this->show_error("SQLÓï¾ä´íÎó£º", "SQL²éÑ¯Óï¾äÎª¿Õ");
 		}
 		$this->sql = $sql;
 
 		$result = mysql_query($this->sql, $this->conn);
 
 		if (!$result) {
-			//è°ƒè¯•ä¸­ä½¿ç”¨ï¼Œsqlè¯­å¥å‡ºé”™æ—¶ä¼šè‡ªåŠ¨æ‰“å°å‡ºæ¥
+			//µ÷ÊÔÖĞÊ¹ÓÃ£¬sqlÓï¾ä³ö´íÊ±»á×Ô¶¯´òÓ¡³öÀ´
 			if ($this->show_error) {
-				$this->show_error("é”™è¯¯SQLè¯­å¥ï¼š", $this->sql);
+				$this->show_error("´íÎóSQLÓï¾ä£º", $this->sql);
 			}
 		} else {
 			$this->result = $result;
@@ -74,18 +74,18 @@ final class Mysql {
 		return $this->result;
 	}
 
-	/*åˆ›å»ºæ·»åŠ æ–°çš„æ•°æ®åº“*/
+	/*´´½¨Ìí¼ÓĞÂµÄÊı¾İ¿â*/
 	public function create_database($database_name) {
 		$database = $database_name;
 		$sqlDatabase = 'create database ' . $database;
 		$this->query($sqlDatabase);
 	}
 
-	/*æŸ¥è¯¢æœåŠ¡å™¨æ‰€æœ‰æ•°æ®åº“*/
-	//å°†ç³»ç»Ÿæ•°æ®åº“ä¸ç”¨æˆ·æ•°æ®åº“åˆ†å¼€ï¼Œæ›´ç›´è§‚çš„æ˜¾ç¤ºï¼Ÿ
+	/*²éÑ¯·şÎñÆ÷ËùÓĞÊı¾İ¿â*/
+	//½«ÏµÍ³Êı¾İ¿âÓëÓÃ»§Êı¾İ¿â·Ö¿ª£¬¸üÖ±¹ÛµÄÏÔÊ¾£¿
 	public function show_databases() {
 		$this->query("show databases");
-		echo "ç°æœ‰æ•°æ®åº“ï¼š" . $amount = $this->db_num_rows();
+		echo "ÏÖÓĞÊı¾İ¿â£º" . $amount = $this->db_num_rows();
 		echo "<br />";
 		$i = 1;
 		while ($row = $this->fetch_array()) {
@@ -95,7 +95,7 @@ final class Mysql {
 		}
 	}
 
-	//ä»¥æ•°ç»„å½¢å¼è¿”å›ä¸»æœºä¸­æ‰€æœ‰æ•°æ®åº“å
+	//ÒÔÊı×éĞÎÊ½·µ»ØÖ÷»úÖĞËùÓĞÊı¾İ¿âÃû
 	public function databases() {
 		$rsPtr = mysql_list_dbs($this->conn);
 		$i = 0;
@@ -107,10 +107,10 @@ final class Mysql {
 		return $rs;
 	}
 
-	/*æŸ¥è¯¢æ•°æ®åº“ä¸‹æ‰€æœ‰çš„è¡¨*/
+	/*²éÑ¯Êı¾İ¿âÏÂËùÓĞµÄ±í*/
 	public function show_tables($database_name) {
 		$this->query("show tables");
-		echo "ç°æœ‰æ•°æ®åº“ï¼š" . $amount = $this->db_num_rows();
+		echo "ÏÖÓĞÊı¾İ¿â£º" . $amount = $this->db_num_rows();
 		echo "<br />";
 		$i = 1;
 		while ($row = $this->fetch_array()) {
@@ -123,42 +123,42 @@ final class Mysql {
 
 	/*
 	mysql_fetch_row()    array  $row[0],$row[1],$row[2]
-	mysql_fetch_array()  array  $row[0] æˆ– $row[id]
-	mysql_fetch_assoc()  array  ç”¨$row->content å­—æ®µå¤§å°å†™æ•æ„Ÿ
-	mysql_fetch_object() object ç”¨$row[id],$row[content] å­—æ®µå¤§å°å†™æ•æ„Ÿ
+	mysql_fetch_array()  array  $row[0] »ò $row[id]
+	mysql_fetch_assoc()  array  ÓÃ$row->content ×Ö¶Î´óĞ¡Ğ´Ãô¸Ğ
+	mysql_fetch_object() object ÓÃ$row[id],$row[content] ×Ö¶Î´óĞ¡Ğ´Ãô¸Ğ
 	*/
 
-	/*å–å¾—ç»“æœæ•°æ®*/
+	/*È¡µÃ½á¹ûÊı¾İ*/
 	public function mysql_result_li() {
 		return mysql_result($str);
 	}
 
-	/*å–å¾—è®°å½•é›†,è·å–æ•°ç»„-ç´¢å¼•å’Œå…³è”,ä½¿ç”¨$row['content'] */
+	/*È¡µÃ¼ÇÂ¼¼¯,»ñÈ¡Êı×é-Ë÷ÒıºÍ¹ØÁª,Ê¹ÓÃ$row['content'] */
 	public function fetch_array() {
 		return mysql_fetch_array($this->result);
 	}
 
-	//è·å–å…³è”æ•°ç»„,ä½¿ç”¨$row['å­—æ®µå']
+	//»ñÈ¡¹ØÁªÊı×é,Ê¹ÓÃ$row['×Ö¶ÎÃû']
 	public function fetch_assoc() {
 		return mysql_fetch_assoc($this->result);
 	}
 
-	//è·å–æ•°å­—ç´¢å¼•æ•°ç»„,ä½¿ç”¨$row[0],$row[1],$row[2]
+	//»ñÈ¡Êı×ÖË÷ÒıÊı×é,Ê¹ÓÃ$row[0],$row[1],$row[2]
 	public function fetch_row() {
 		return mysql_fetch_row($this->result);
 	}
 
-	//è·å–å¯¹è±¡æ•°ç»„,ä½¿ç”¨$row->content
+	//»ñÈ¡¶ÔÏóÊı×é,Ê¹ÓÃ$row->content
 	public function fetch_Object() {
 		return mysql_fetch_object($this->result);
 	}
 
-	//ç®€åŒ–æŸ¥è¯¢select
+	//¼ò»¯²éÑ¯select
 	public function findall($table) {
 		$this->query("SELECT * FROM $table");
 	}
 
-	//ç®€åŒ–æŸ¥è¯¢select
+	//¼ò»¯²éÑ¯select
 	public function select($table, $columnName = "*", $condition = '', $debug = '') {
 		$condition = $condition ? ' Where ' . $condition : NULL;
 		if ($debug) {
@@ -168,23 +168,23 @@ final class Mysql {
 		}
 	}
 
-	//ç®€åŒ–åˆ é™¤del
+	//¼ò»¯É¾³ıdel
 	public function delete($table, $condition, $url = '') {
 		if ($this->query("DELETE FROM $table WHERE $condition")) {
 			if (!empty ($url))
-				$this->Get_admin_msg($url, 'åˆ é™¤æˆåŠŸï¼');
+				$this->Get_admin_msg($url, 'É¾³ı³É¹¦£¡');
 		}
 	}
 
-	//ç®€åŒ–æ’å…¥insert
+	//¼ò»¯²åÈëinsert
 	public function insert($table, $columnName, $value, $url = '') {
 		if ($this->query("INSERT INTO $table ($columnName) VALUES ($value)")) {
 			if (!empty ($url))
-				$this->Get_admin_msg($url, 'æ·»åŠ æˆåŠŸï¼');
+				$this->Get_admin_msg($url, 'Ìí¼Ó³É¹¦£¡');
 		}
 	}
 
-	//ç®€åŒ–ä¿®æ”¹update
+	//¼ò»¯ĞŞ¸Äupdate
 	public function update($table, $mod_content, $condition, $url = '') {
 		//echo "UPDATE $table SET $mod_content WHERE $condition"; exit();
 		if ($this->query("UPDATE $table SET $mod_content WHERE $condition")) {
@@ -193,51 +193,51 @@ final class Mysql {
 		}
 	}
 
-	/*å–å¾—ä¸Šä¸€æ­¥ INSERT æ“ä½œäº§ç”Ÿçš„ ID*/
+	/*È¡µÃÉÏÒ»²½ INSERT ²Ù×÷²úÉúµÄ ID*/
 	public function insert_id() {
 		return mysql_insert_id();
 	}
 
-	//æŒ‡å‘ç¡®å®šçš„ä¸€æ¡æ•°æ®è®°å½•
+	//Ö¸ÏòÈ·¶¨µÄÒ»ÌõÊı¾İ¼ÇÂ¼
 	public function db_data_seek($id) {
 		if ($id > 0) {
 			$id = $id -1;
 		}
 		if (!@ mysql_data_seek($this->result, $id)) {
-			$this->show_error("SQLè¯­å¥æœ‰è¯¯ï¼š", "æŒ‡å®šçš„æ•°æ®ä¸ºç©º");
+			$this->show_error("SQLÓï¾äÓĞÎó£º", "Ö¸¶¨µÄÊı¾İÎª¿Õ");
 		}
 		return $this->result;
 	}
 
-	// æ ¹æ®selectæŸ¥è¯¢ç»“æœè®¡ç®—ç»“æœé›†æ¡æ•°
+	// ¸ù¾İselect²éÑ¯½á¹û¼ÆËã½á¹û¼¯ÌõÊı
 	public function db_num_rows() {
 		if ($this->result == null) {
 			if ($this->show_error) {
-				$this->show_error("SQLè¯­å¥é”™è¯¯", "æš‚æ—¶ä¸ºç©ºï¼Œæ²¡æœ‰ä»»ä½•å†…å®¹ï¼");
+				$this->show_error("SQLÓï¾ä´íÎó", "ÔİÊ±Îª¿Õ£¬Ã»ÓĞÈÎºÎÄÚÈİ£¡");
 			}
 		} else {
 			return mysql_num_rows($this->result);
 		}
 	}
 
-	// æ ¹æ®insert,update,deleteæ‰§è¡Œç»“æœå–å¾—å½±å“è¡Œæ•°
+	// ¸ù¾İinsert,update,deleteÖ´ĞĞ½á¹ûÈ¡µÃÓ°ÏìĞĞÊı
 	public function db_affected_rows() {
 		return mysql_affected_rows();
 	}
 
-	//è¾“å‡ºæ˜¾ç¤ºsqlè¯­å¥
+	//Êä³öÏÔÊ¾sqlÓï¾ä
 	public function show_error($message = "", $sql = "") {
 		if (!$sql) {
 			echo "<font color='red'>" . $message . "</font>";
 			echo "<br />";
 		} else {
 			echo "<fieldset>";
-			echo "<legend>é”™è¯¯ä¿¡æ¯æç¤º:</legend><br />";
+			echo "<legend>´íÎóĞÅÏ¢ÌáÊ¾:</legend><br />";
 			echo "<div style='font-size:14px; clear:both; font-family:Verdana, Arial, Helvetica, sans-serif;'>";
 			echo "<div style='height:20px; background:#000000; border:1px #000000 solid'>";
-			echo "<font color='white'>é”™è¯¯å·ï¼š12142</font>";
+			echo "<font color='white'>´íÎóºÅ£º12142</font>";
 			echo "</div><br />";
-			echo "é”™è¯¯åŸå› ï¼š" . mysql_error() . "<br /><br />";
+			echo "´íÎóÔ­Òò£º" . mysql_error() . "<br /><br />";
 			echo "<div style='height:20px; background:#FF0000; border:1px #FF0000 solid'>";
 			echo "<font color='white'>" . $message . "</font>";
 			echo "</div>";
@@ -245,75 +245,75 @@ final class Mysql {
 			$ip = $this->getip();
 			if ($this->bulletin) {
 				$time = date("Y-m-d H:i:s");
-				$message = $message . "\r\n$this->sql" . "\r\nå®¢æˆ·IP:$ip" . "\r\næ—¶é—´ :$time" . "\r\n\r\n";
+				$message = $message . "\r\n$this->sql" . "\r\n¿Í»§IP:$ip" . "\r\nÊ±¼ä :$time" . "\r\n\r\n";
 
 				$server_date = date("Y-m-d");
 				$filename = $server_date . "_SQL.txt";
 				$file_path = ROOT_PATH."/error/" . $filename;
 				$error_content = $message;
-				//$error_content="é”™è¯¯çš„æ•°æ®åº“ï¼Œä¸å¯ä»¥é“¾æ¥";
-				$file = ROOT_PATH."/error"; //è®¾ç½®æ–‡ä»¶ä¿å­˜ç›®å½•
+				//$error_content="´íÎóµÄÊı¾İ¿â£¬²»¿ÉÒÔÁ´½Ó";
+				$file = ROOT_PATH."/error"; //ÉèÖÃÎÄ¼ş±£´æÄ¿Â¼
 
-				//å»ºç«‹æ–‡ä»¶å¤¹
+				//½¨Á¢ÎÄ¼ş¼Ğ
 				if (!file_exists($file)) {
 					if (!mkdir($file, 0777)) {
-						//é»˜è®¤çš„ mode æ˜¯ 0777ï¼Œæ„å‘³ç€æœ€å¤§å¯èƒ½çš„è®¿é—®æƒ
+						//Ä¬ÈÏµÄ mode ÊÇ 0777£¬ÒâÎ¶×Å×î´ó¿ÉÄÜµÄ·ÃÎÊÈ¨
 						die("upload files directory does not exist and creation failed");
 					}
 				}
 
-				//å»ºç«‹txtæ—¥æœŸæ–‡ä»¶
+				//½¨Á¢txtÈÕÆÚÎÄ¼ş
 				if (!file_exists($file_path)) {
 
-					//echo "å»ºç«‹æ—¥æœŸæ–‡ä»¶";
+					//echo "½¨Á¢ÈÕÆÚÎÄ¼ş";
 					fopen($file_path, "w+");
 
-					//é¦–å…ˆè¦ç¡®å®šæ–‡ä»¶å­˜åœ¨å¹¶ä¸”å¯å†™
+					//Ê×ÏÈÒªÈ·¶¨ÎÄ¼ş´æÔÚ²¢ÇÒ¿ÉĞ´
 					if (is_writable($file_path)) {
-						//ä½¿ç”¨æ·»åŠ æ¨¡å¼æ‰“å¼€$filenameï¼Œæ–‡ä»¶æŒ‡é’ˆå°†ä¼šåœ¨æ–‡ä»¶çš„å¼€å¤´
+						//Ê¹ÓÃÌí¼ÓÄ£Ê½´ò¿ª$filename£¬ÎÄ¼şÖ¸Õë½«»áÔÚÎÄ¼şµÄ¿ªÍ·
 						if (!$handle = fopen($file_path, 'a')) {
-							echo "ä¸èƒ½æ‰“å¼€æ–‡ä»¶ $filename";
+							echo "²»ÄÜ´ò¿ªÎÄ¼ş $filename";
 							exit;
 						}
 
-						//å°†$somecontentå†™å…¥åˆ°æˆ‘ä»¬æ‰“å¼€çš„æ–‡ä»¶ä¸­ã€‚
+						//½«$somecontentĞ´Èëµ½ÎÒÃÇ´ò¿ªµÄÎÄ¼şÖĞ¡£
 						if (!fwrite($handle, $error_content)) {
-							echo "ä¸èƒ½å†™å…¥åˆ°æ–‡ä»¶ $filename";
+							echo "²»ÄÜĞ´Èëµ½ÎÄ¼ş $filename";
 							exit;
 						}
 
-						//echo "æ–‡ä»¶ $filename å†™å…¥æˆåŠŸ";
+						//echo "ÎÄ¼ş $filename Ğ´Èë³É¹¦";
 
-						echo "â€”â€”é”™è¯¯è®°å½•è¢«ä¿å­˜!";
+						echo "¡ª¡ª´íÎó¼ÇÂ¼±»±£´æ!";
 
-						//å…³é—­æ–‡ä»¶
+						//¹Ø±ÕÎÄ¼ş
 						fclose($handle);
 					} else {
-						echo "æ–‡ä»¶ $filename ä¸å¯å†™";
+						echo "ÎÄ¼ş $filename ²»¿ÉĞ´";
 					}
 
 				} else {
-					//é¦–å…ˆè¦ç¡®å®šæ–‡ä»¶å­˜åœ¨å¹¶ä¸”å¯å†™
+					//Ê×ÏÈÒªÈ·¶¨ÎÄ¼ş´æÔÚ²¢ÇÒ¿ÉĞ´
 					if (is_writable($file_path)) {
-						//ä½¿ç”¨æ·»åŠ æ¨¡å¼æ‰“å¼€$filenameï¼Œæ–‡ä»¶æŒ‡é’ˆå°†ä¼šåœ¨æ–‡ä»¶çš„å¼€å¤´
+						//Ê¹ÓÃÌí¼ÓÄ£Ê½´ò¿ª$filename£¬ÎÄ¼şÖ¸Õë½«»áÔÚÎÄ¼şµÄ¿ªÍ·
 						if (!$handle = fopen($file_path, 'a')) {
-							echo "ä¸èƒ½æ‰“å¼€æ–‡ä»¶ $filename";
+							echo "²»ÄÜ´ò¿ªÎÄ¼ş $filename";
 							exit;
 						}
 
-						//å°†$somecontentå†™å…¥åˆ°æˆ‘ä»¬æ‰“å¼€çš„æ–‡ä»¶ä¸­ã€‚
+						//½«$somecontentĞ´Èëµ½ÎÒÃÇ´ò¿ªµÄÎÄ¼şÖĞ¡£
 						if (!fwrite($handle, $error_content)) {
-							echo "ä¸èƒ½å†™å…¥åˆ°æ–‡ä»¶ $filename";
+							echo "²»ÄÜĞ´Èëµ½ÎÄ¼ş $filename";
 							exit;
 						}
 
-						//echo "æ–‡ä»¶ $filename å†™å…¥æˆåŠŸ";
-						echo "â€”â€”é”™è¯¯è®°å½•è¢«ä¿å­˜!";
+						//echo "ÎÄ¼ş $filename Ğ´Èë³É¹¦";
+						echo "¡ª¡ª´íÎó¼ÇÂ¼±»±£´æ!";
 
-						//å…³é—­æ–‡ä»¶
+						//¹Ø±ÕÎÄ¼ş
 						fclose($handle);
 					} else {
-						echo "æ–‡ä»¶ $filename ä¸å¯å†™";
+						echo "ÎÄ¼ş $filename ²»¿ÉĞ´";
 					}
 				}
 
@@ -329,22 +329,22 @@ final class Mysql {
 		echo "<br />";
 	}
 
-	//é‡Šæ”¾ç»“æœé›†
+	//ÊÍ·Å½á¹û¼¯
 	public function free() {
 		@ mysql_free_result($this->result);
 	}
 
-	//æ•°æ®åº“é€‰æ‹©
+	//Êı¾İ¿âÑ¡Ôñ
 	public function select_db($db_database) {
 		return mysql_select_db($db_database);
 	}
 
-	//æŸ¥è¯¢å­—æ®µæ•°é‡
+	//²éÑ¯×Ö¶ÎÊıÁ¿
 	public function num_fields($table_name) {
 		//return mysql_num_fields($this->result);
 		$this->query("select * from $table_name");
 		echo "<br />";
-		echo "å­—æ®µæ•°ï¼š" . $total = mysql_num_fields($this->result);
+		echo "×Ö¶ÎÊı£º" . $total = mysql_num_fields($this->result);
 		echo "<pre>";
 		for ($i = 0; $i < $total; $i++) {
 			print_r(mysql_fetch_field($this->result, $i));
@@ -353,31 +353,31 @@ final class Mysql {
 		echo "<br />";
 	}
 
-	//å–å¾— MySQL æœåŠ¡å™¨ä¿¡æ¯
+	//È¡µÃ MySQL ·şÎñÆ÷ĞÅÏ¢
 	public function mysql_server($num = '') {
 		switch ($num) {
 			case 1 :
-				return mysql_get_server_info(); //MySQL æœåŠ¡å™¨ä¿¡æ¯
+				return mysql_get_server_info(); //MySQL ·şÎñÆ÷ĞÅÏ¢
 				break;
 
 			case 2 :
-				return mysql_get_host_info(); //å–å¾— MySQL ä¸»æœºä¿¡æ¯
+				return mysql_get_host_info(); //È¡µÃ MySQL Ö÷»úĞÅÏ¢
 				break;
 
 			case 3 :
-				return mysql_get_client_info(); //å–å¾— MySQL å®¢æˆ·ç«¯ä¿¡æ¯
+				return mysql_get_client_info(); //È¡µÃ MySQL ¿Í»§¶ËĞÅÏ¢
 				break;
 
 			case 4 :
-				return mysql_get_proto_info(); //å–å¾— MySQL åè®®ä¿¡æ¯
+				return mysql_get_proto_info(); //È¡µÃ MySQL Ğ­ÒéĞÅÏ¢
 				break;
 
 			default :
-				return mysql_get_client_info(); //é»˜è®¤å–å¾—mysqlç‰ˆæœ¬ä¿¡æ¯
+				return mysql_get_client_info(); //Ä¬ÈÏÈ¡µÃmysql°æ±¾ĞÅÏ¢
 		}
 	}
 
-	//ææ„å‡½æ•°ï¼Œè‡ªåŠ¨å…³é—­æ•°æ®åº“,åƒåœ¾å›æ”¶æœºåˆ¶
+	//Îö¹¹º¯Êı£¬×Ô¶¯¹Ø±ÕÊı¾İ¿â,À¬»ø»ØÊÕ»úÖÆ
 	public function __destruct() {
 		if (!empty ($this->result)) {
 			$this->free();
@@ -385,7 +385,7 @@ final class Mysql {
 //		mysql_close($this->conn);
 	} //function __destruct();
 
-	/*è·å¾—å®¢æˆ·ç«¯çœŸå®çš„IPåœ°å€*/
+	/*»ñµÃ¿Í»§¶ËÕæÊµµÄIPµØÖ·*/
 	function getip() {
 		if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown")) {
 			$ip = getenv("HTTP_CLIENT_IP");
@@ -403,16 +403,16 @@ final class Mysql {
 					}
 		return ($ip);
 	}
-	function inject_check($sql_str) { //é˜²æ­¢æ³¨å…¥
+	function inject_check($sql_str) { //·ÀÖ¹×¢Èë
 		$check = eregi('select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile', $sql_str);
 		if ($check) {
-			echo "è¾“å…¥éæ³•æ³¨å…¥å†…å®¹ï¼";
+			echo "ÊäÈë·Ç·¨×¢ÈëÄÚÈİ£¡";
 			exit ();
 		} else {
 			return $sql_str;
 		}
 	}
-	function checkurl() { //æ£€æŸ¥æ¥è·¯
+	function checkurl() { //¼ì²éÀ´Â·
 		if (preg_replace("/https?:\/\/([^\:\/]+).*/i", "\\1", $_SERVER['HTTP_REFERER']) !== preg_replace("/([^\:]+).*/", "\\1", $_SERVER['HTTP_HOST'])) {
 			header("Location: http://yuansir-web.com");
 			exit();

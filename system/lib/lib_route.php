@@ -1,6 +1,6 @@
 <?php
 /**
- * URLå¤„ç†ç±»
+ * URL´¦ÀíÀà
  */
 final class Route{
         public $url_query;
@@ -8,22 +8,22 @@ final class Route{
         public $route_url = array();
 
         public function __construct() {
-                $this->url_query = parse_url($_SERVER['REQUEST_URI']);//æ­¤å‡½æ•°è¿”å›ä¸€ä¸ªå…³è”æ•°ç»„ï¼ŒåŒ…å«ç°æœ‰ URL çš„å„ç§ç»„æˆéƒ¨åˆ†ã€‚      
+                $this->url_query = parse_url($_SERVER['REQUEST_URI']);//´Ëº¯Êı·µ»ØÒ»¸ö¹ØÁªÊı×é£¬°üº¬ÏÖÓĞ URL µÄ¸÷ÖÖ×é³É²¿·Ö¡£      
         }
         /**
-         * è®¾ç½®URLç±»å‹
+         * ÉèÖÃURLÀàĞÍ
          * @access      public
          */
         public function setUrlType($url_type = 2){
                 if($url_type > 0 && $url_type <3){
                         $this->url_type = $url_type;
                 }else{
-                        trigger_error("æŒ‡å®šçš„URLæ¨¡å¼ä¸å­˜åœ¨ï¼");
+                        trigger_error("No this url type!");
                 }
         }
 
         /**
-         * è·å–æ•°ç»„å½¢å¼çš„URL  
+         * »ñÈ¡Êı×éĞÎÊ½µÄURL  
          * @access      public
          */
         public function getUrlArray(){
@@ -44,7 +44,7 @@ final class Route{
                 }
         }
         /**
-         * å°†queryå½¢å¼çš„URLè½¬åŒ–æˆæ•°ç»„ï¼Œæ™®é€šæ¨¡å¼index.php?c=controller&a=action&id=2
+         * ½«queryĞÎÊ½µÄURL×ª»¯³ÉÊı×é£¬ÆÕÍ¨Ä£Ê½index.php?c=controller&a=action&id=2
          * @access      public
          */
         public function querytToArray(){
@@ -77,7 +77,7 @@ final class Route{
                 }   
         }
         /**
-         * å°†PATH_INFOçš„URLå½¢å¼è½¬åŒ–ä¸ºæ•°ç»„ï¼Œè·¯å¾„æ¨¡å¼ï¼šindex.php/controller/action/id/2
+         * ½«PATH_INFOµÄURLĞÎÊ½×ª»¯ÎªÊı×é£¬Â·¾¶Ä£Ê½£ºindex.php/controller/action/id/2
          * @access      public
          */
         public function pathinfoToArray(){
