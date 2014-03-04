@@ -1,35 +1,11 @@
 <?php
-/*Ӧ�������ļ�
- *����home��Ŀ�������ļ��������޸ġ�
+/**
+ *index.php入口文件
  */
-require dirname(__FILE__).'/config/config.php';//���������ļ���
-require dirname(__FILE__).'/common/smarty/Smarty.class.php';//����smarty�ļ���
-require dirname(__FILE__).'/home/conf/config.php';//������Ŀ�����ļ���
-require dirname(__FILE__).'/system/app.php';//���������ļ���
-
-//***********smarty***********
-$smarty = new smarty();
-$smarty->template_dir = $smarty_template_dir;
-$smarty->compile_dir  = $smarty_compile_dir;
-$smarty->config_dir   = $smarty_config_dir;
-$smarty->cache_dir    = $smarty_cache_dir;
-$smarty->caching      = $smarty_caching;
-$smarty->left_delimiter =$smarty_delimiter[0];
-$smarty->right_delimiter=$smarty_delimiter[1];
-
+include dirname(__FILE__).'/config.php';//配置文件
+include dirname(__FILE__).'/init.php';//加载初始化文件
+include dirname(__FILE__).'/home/config/config.php';//项目配置文件
+include dirname(__FILE__).'/system/core/function.php';//引入项目方法库文件
+include dirname(__FILE__).'/system/app.php';//系统核心文件
+init_smarty(dirname(__FILE__).'/home');//初始化smarty
 $smarty->assign("t_dir",$smarty_template_dir);
-
-
-/*smarty test!
-$str="aaaaaaaaaa";
-$smarty->assign("str",$str);
-$smarty->display("index/index.html");
-改变一些。
-*/
-?>
-
-
-
-
-
-

@@ -1,54 +1,43 @@
 <?php
-/*
- *ºËĞÄ¿ØÖÆÆ÷Àà
+/**
+ *æ ¸å¿ƒæ§åˆ¶å™¨ç±»
  */
 class model{
     protected $db = null;
-    final public function __construct(){ //³õÊ¼»¯º¯Êı
+    final public function __construct(){//åˆå§‹åŒ–å‡½æ•°
         //header('Content-type:text/html;chartset=utf-8');
-        $this-> db = $this->load('mysql');//¼ÇÔØmysqlÀà¿âÎÄ¼ş
+        $this -> db = $this->load('mysql');//åŠ è½½mysqlç±»åº“æ–‡ä»¶
         $config_db = $this->config('db');
-        $this ->db ->init(
-                        $config_db['db_host'],
-                        $config_db['db_user'],
-                        $config_db['db_password'],
-                        $config_db['db_database'],
-                        $config_db['db_conn'],
-                        $config_db['db_charset'] 
+        $this -> db ->init(
+            $config_db['db_host'],
+            $config_db['db_user'],
+            $config_db['db_password'],
+            $config_db['db_database'],
+            $config_db['db_conn'],
+            $config_db['db_charset'] 
         );
     }
-    /*
-     *Êı¾İ±í²Ù×÷º¯Êıtable
-     *table·½·¨Ö»ÄÜ±»×ÓÀà¼Ì³ĞÊ¹ÓÃ²»ÄÜ±»¸²¸Ç¡£final
-     *table·½·¨Ö»ÄÜÔÚ¼Ì³ĞmodelÀàµÄÀàÖĞ¿ÉÒÔÊ¹ÓÃ¡£protected
-     *
-     */
+    /*æ•°æ®è¡¨æ“ä½œå‡½æ•°table*/
     final protected function table($table_name){
     $config_db = $this->config('db');
         if(empty($table_name)){
-            die("±íÃû²»ÄÜÎª¿Õ");
+            die("è¡¨åä¸èƒ½ä¸ºç©º");
         }else{
             return $config_db['db_table_prefix'].$table_name;
         }
     }
- 
-    /*
-     *¼ÓÔØÏµÍ³Àà¿â»ò×Ô¶¨ÒåÀà¿âÎÄ¼ş
-     */
+    /*åŠ è½½ç³»ç»Ÿç±»åº“æˆ–è‡ªå®šä¹‰ç±»åº“æ–‡ä»¶*/
     final protected function load($lib,$my = FALSE){
         if(empty($lib)){
-            trigger_error("Àà¿â²»´æÔÚ£¡");
-        }elseif($my === FALSE){//ÏµÍ³Àà¿â
+            trigger_error("ç±»åº“ä¸å­˜åœ¨!");
+        }elseif($my === FALSE){//ç³»ç»Ÿç±»åº“
             return Application::$_lib[$lib];
-        }elseif($my === TRUE){//×Ô¶¨ÒåÀà¿â
+        }elseif($my === TRUE){//è‡ªå®šä¹‰ç±»åº“
             return Application::newlib($lib);            
         } 
     }
-    /*
-     *»ñÈ¡ÅäÖÃĞÅÏ¢¡£
-     */
+    /*è·å–é…ç½®ä¿¡æ¯*/
      final protected function config($con=''){
         return Application::$_config[$con];      
     }
- 
 }

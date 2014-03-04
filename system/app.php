@@ -1,106 +1,92 @@
 <?php
-/*
- *zsmy_mvc¿ò¼ÜºËÐÄÇý¶¯ÎÄ¼þ£»
- *app.phpÎÄ¼þ×÷ÓÃ£º¼ÓÔØºËÐÄ¿ØÖÆÆ÷¡¢ºËÐÄ¿ØÖÆÆ÷Àà¡¢Àà¿â¡¢×Ô¶¨ÒåÀà¿â£»
- *url·Ö·¢£»
- *http://www.baidu.com/index.php?controller=index&action=index$id=7
- *app:ÐÂ½¨ÏîÄ¿Ãû³Æ£¬ÓÉÓÚÊÇÓÐ²»Í¬µÄÈë¿ÚÎÄ¼þ£¬app¿ÉÒÔÔÚÅäÖÃÎÄ¼þÖÐÅäÖÃ£¬²»ÓÃÐ´½øurl
- *controller£º¿ØÖÆÆ÷ÎÄ¼þÃû³Æ
- *action£º¿ØÖÆÆ÷ÖÐµÄ·½·¨
- *id£º·½·¨²ÎÊý
-*/
+/**
+ *zsmy_mvcæ¡†æž¶æ ¸å¿ƒé©±åŠ¨æ–‡ä»¶;
+ *app.phpæ–‡ä»¶ä½œç”¨ï¼šåŠ è½½æ ¸å¿ƒæŽ§åˆ¶å™¨ã€æ ¸å¿ƒæŽ§åˆ¶å™¨ç±»ã€ç±»åº“ã€è‡ªå®šä¹‰ç±»åº“;
+ *urlåˆ†å‘;
+ */
 define('SYSTEM_PATH',dirname(__FILE__));
 define('ROOT_PATH',substr(SYSTEM_PATH,0,-7));
 final class Application{
-    public static $_lib = null;//Àà¿âÎÄ¼þ
-    public static $_config = null;//ÅäÖÃÎÄ¼þ
-    
+    public static $_lib = null;//ç±»åº“æ–‡ä»¶
+    public static $_config = null;//é…ç½®æ–‡ä»¶
     public static function init(){
         self::setAutoLibs();
         require SYSTEM_PATH.'/core/model.php';          
         require SYSTEM_PATH.'/core/controller.php';
     }
-    /*´´½¨Ó¦ÓÃ
-     */
+    /*åˆ›å»ºåº”ç”¨*/
     public static function run($config){
-    self::$_config = $config['system'];//ÒýÈëÅäÖÃÎÄ¼þÊÇÎªÁËÅÐ¶Ïurl£¬ÓëÊý¾Ý¿âÁ´½ÓÃ»ÓÐ¹ØÏµ
-    //ÒýÈë²¢¼ÓÔØºËÐÄÀà¿âºÍ¿ØÖÆÀà
-    self::init();
-    self::autoload();//×Ô¶¨ÒåÀà¿âÊµÀý»¯Íê³É£¬¿ÉÖ±½ÓÊµÀý»¯¡£
-    //url·Ö·¢
-    self::$_lib['route']->setUrlType(self::$_config['route']['url_type']); //ÉèÖÃurlµÄÀàÐÍ
-    $url_array = self::$_lib['route']->getUrlArray();//½«url×ª»»³ÉÊý×é
-    self::routeToCm($url_array);//url·Ö·¢
+        self::$_config = $config['system'];//å¼•å…¥é…ç½®æ–‡ä»¶æ˜¯ä¸ºäº†åˆ¤æ–­urlï¼Œä¸Žæ•°æ®åº“é“¾æŽ¥æ²¡æœ‰å…³ç³»
+        //å¼•å…¥å¹¶åŠ è½½æ ¸å¿ƒç±»åº“å’ŒæŽ§åˆ¶ç±»
+        self::init();
+        self::autoload();//è‡ªå®šä¹‰ç±»åº“å®žä¾‹åŒ–å®Œæˆï¼Œå¯ç›´æŽ¥å®žä¾‹åŒ–ã€‚
+        //urlåˆ†å‘
+        self::$_lib['route']->setUrlType(self::$_config['route']['url_type']); //è®¾ç½®urlçš„ç±»åž‹
+        $url_array = self::$_lib['route']->getUrlArray();//å°†urlè½¬æ¢æˆæ•°ç»„
+        self::routeToCm($url_array);//urlåˆ†å‘
     }
-    /*
-     *×Ô¶¯¼ÓÔØÏµÍ³Àà¿âÎÄ¼þ
-     */
+    /*è‡ªåŠ¨åŠ è½½ç³»ç»Ÿç±»åº“æ–‡ä»¶*/
     public static function setAutoLibs(){
         self::$_lib = array(
             'route' => SYSTEM_PATH.'/lib/lib_route.php',
             'mysql' => SYSTEM_PATH.'/lib/lib_mysql.php',
             'session' => SYSTEM_PATH.'/lib/lib_session.php'
-);
-}
-    /*ÔØÈëÏµÍ³Àà¿âÎÄ¼þ²¢ÊµÀý»¯
-     */
+        );
+    }
+    /*è½½å…¥ç³»ç»Ÿç±»åº“æ–‡ä»¶å¹¶å®žä¾‹åŒ–*/
     public static function autoload(){
         foreach(self::$_lib as $key => $value){
-            require self::$_lib[$key];//´Ë´¦requireº¯ÊýÃ»ÓÐ¼ÓÀ¨ºÅ
+            require self::$_lib[$key];//æ­¤å¤„requireå‡½æ•°æ²¡æœ‰åŠ æ‹¬å·
             $lib = ucfirst($key);
             self::$_lib[$key]= new $lib;            
         }  
     }
-    /*¸ù¾Ýurl·Ö·¢
-     */
+    /*æ ¹æ®urlåˆ†å‘*/
     public static function routeToCm($url_array=array()){
-                $controller = '';//¿ØÖÆÆ÷Ãû³Æ
-                $action = '';//·½·¨Ãû³Æ
-                $model = '';//Ä£ÐÍÃû³Æ
-                $params = '';//²ÎÊý
-        //¿ØÖÆÆ÷¡£ÕâÀïÖ»ÅÐ¶Ïcontroller²ÎÊý£¬Ö±½Ó¸³Öµ¿ØÖÆÆ÷ºÍÄ£ÐÍÁ½¸öÂ·¾¶£¬·½±ãÏÂÃæ½øÐÐÁ½¸öÎÄ¼þµ÷ÓÃ¡£
+        $controller = '';//æŽ§åˆ¶å™¨åç§°
+        $action = '';//æ–¹æ³•åç§°
+        $model = '';//æ¨¡åž‹åç§°
+        $params = '';//å‚æ•°
+        //æŽ§åˆ¶å™¨ã€‚è¿™é‡Œåªåˆ¤æ–­controllerå‚æ•°ï¼Œç›´æŽ¥èµ‹å€¼æŽ§åˆ¶å™¨å’Œæ¨¡åž‹ä¸¤ä¸ªè·¯å¾„ï¼Œæ–¹ä¾¿ä¸‹é¢è¿›è¡Œä¸¤ä¸ªæ–‡ä»¶è°ƒç”¨ã€‚
         if(isset($url_array['controller'])){
             $controller = $model =$url_array['controller'];
             $controller_file = ROOT_PATH.APP_NAME.'controller/'.$controller.'Controller.php';
             $model_file      = ROOT_PATH.APP_NAME.'model/'.$model.'Model.php'; 
-        }else{//Ä¬ÈÏ¿ØÖÆÆ÷
+        }else{//é»˜è®¤æŽ§åˆ¶å™¨
             $controller = $model =self::$_config['route']['default_controller'];
             $controller_file = ROOT_PATH.APP_NAME.'controller/'.self::$_config['route']['default_controller'].'Controller.php';
             $model_file      = ROOT_PATH.APP_NAME.'model/'.self::$_config['route']['default_controller'].'Model.php'; 
         }
-        //·½·¨
+        //æ–¹æ³•
         if(isset($url_array['action'])){
             $action = $url_array['action']; 
         }else{
             $action = self::$_config['route']['default_action'];
         }
-        //²ÎÊý
+        //å‚æ•°
         if(isset($url_array['params'])){
             $params = $url_array['params'];           
         }
-        //¶Ô»ñµÃµÄurlÁ´½Ó½øÐÐ´¦Àí£¬
-        if(file_exists($controller_file)){//file_existsÎÄ¼þÅÐ¶ÏÊÇ·ñ´æÔÚÖ¸¶¨µÄÎÄ¼þ»òÎÄ¼þÂ·¾¶¡£
-            if(file_exists($model_file)){//ÉèÖÃµÄÓÖÏàÓ¦µÄÄ£ÐÍÎÄ¼þ£¬Ôò½øÐÐ¼ÓÔØ¡£
-            require $model_file;    
+        //å¯¹èŽ·å¾—çš„urlé“¾æŽ¥è¿›è¡Œå¤„ç†ï¼Œ
+        if(file_exists($controller_file)){//file_existsæ–‡ä»¶åˆ¤æ–­æ˜¯å¦å­˜åœ¨æŒ‡å®šçš„æ–‡ä»¶æˆ–æ–‡ä»¶è·¯å¾„ã€‚
+            if(file_exists($model_file)){//è®¾ç½®çš„åˆç›¸åº”çš„æ¨¡åž‹æ–‡ä»¶ï¼Œåˆ™è¿›è¡ŒåŠ è½½ã€‚
+                require $model_file;    
             }            
             require $controller_file;
-            //ÒýÈë¿ØÖÆÆ÷ÎÄ¼þºó½øÐÐÊµÀý»¯
+            //å¼•å…¥æŽ§åˆ¶å™¨æ–‡ä»¶åŽè¿›è¡Œå®žä¾‹åŒ–
             $controller = $controller.'Controller';
             $controller = new $controller;
             if($action){
-                if(method_exists($controller,$action)){//ÅÐ¶ÏÊÇ·ñ´æÔÚÖ¸¶¨ÀàÖÐµÄ·½·¨¡£
+                if(method_exists($controller,$action)){//åˆ¤æ–­æ˜¯å¦å­˜åœ¨æŒ‡å®šç±»ä¸­çš„æ–¹æ³•ã€‚
                     isset($params)?$controller->$action($params):$controller->$action();
                 }else{
-                    die("¿ØÖÆÆ÷·½·¨²»´æÔÚ!!");
+                    die("æŽ§åˆ¶å™¨æ–¹æ³•ä¸å­˜åœ¨!!");
                 }
-                
             }else{
-                die("¿ØÖÆÆ÷·½·¨²»´æÔÚ£¡");
+                die("æŽ§åˆ¶å™¨æ–¹æ³•ä¸å­˜åœ¨ï¼");
             }  
         }else{
-            die("¿ØÖÆÆ÷²»´æÔÚ£¡");
+            die("æŽ§åˆ¶å™¨ä¸å­˜åœ¨ï¼");
         } 
     }
-
-  
 }

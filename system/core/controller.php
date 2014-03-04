@@ -1,38 +1,26 @@
 <?php
-/*
- *ºËÐÄ¿ØÖÆÆ÷,ÏîÄ¿¿ØÖÆÆ÷³£ÓÃ²Ù×÷
- *ÎÄ¼þÖÐÊÇ³£ÓÃµÄÊµÀý»¯Ä£ÐÍ²Ù×÷model
+/**
+ *controller.phpæŽ§åˆ¶ç±»æ–‡ä»¶
  */
 class Controller {
-
-    public function __construct(){
-        
+    public function __construct(){ 
     }  
-    /*
-     *ÊµÀý»¯Ä£ÐÍ²Ù×÷
-     *Ö»ÓÐÏîÄ¿µÄ¿ØÖÆÆ÷Àà¿ÉÒÔÊ¹ÓÃmodel·½·¨¡£protected
-     *model·½·¨²»ÄÜ±»¸²¸Ç£¬ÊÇ×îÖÕ°æ±¾¡£final
-     *indexModel
-     */
+    /*åˆå§‹åŒ–æ¨¡åž‹ç±»å‡½æ•°*/
     final protected function model($model){
-                if (empty($model)) {
-                        trigger_error('²»ÄÜÊµÀý»¯¿ÕÄ£ÐÍ');
-                }
-                $model_name = $model.'Model';
-                return new $model_name;
+        if (empty($model)) {
+            trigger_error('æ¨¡åž‹ç±»æ–‡ä»¶åŠ è½½å¤±è´¥');
+        }
+        $model_name = $model.'Model';
+        return new $model_name;
     }
-        /*
-     *¼ÓÔØÏµÍ³Àà¿â»ò×Ô¶¨ÒåÀà¿âÎÄ¼þ
-     */
+    /*åŠ è½½ç±»æ–‡ä»¶å‡½æ•°*/
     final protected function load($lib,$my = FALSE){
         if(empty($lib)){
-            trigger_error("Àà¿â²»´æÔÚ£¡");
-        }elseif($my === FALSE){//ÏµÍ³Àà¿â
+            trigger_error("ç±»æ–‡ä»¶ä¸ºç©º");
+        }elseif($my === FALSE){
             return Application::$_lib[$lib];
-        }elseif($my === TRUE){//×Ô¶¨ÒåÀà¿â
+        }elseif($my === TRUE){
             return Application::newlib($lib);            
         } 
     }
 }
-
-

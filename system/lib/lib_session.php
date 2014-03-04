@@ -1,7 +1,7 @@
 <?php
 final class Session {
 
-    function user_shell($uid,$shell){//session中的信息和数据库的信息作对比
+    function user_shell($uid,$shell){//session涓殑淇℃伅鍜屾暟鎹簱鐨勪俊鎭綔瀵规瘮
            $sql="select * from wx_user where `id` = '$uid'";
            $qu = mysql_query($sql);
            $ps = is_array($user=mysql_fetch_array($qu));
@@ -11,7 +11,7 @@ final class Session {
            }
     }      
            
-    function user_mktime($ontime){//判断是否登录超时
+    function user_mktime($ontime){//鍒ゆ柇鏄惁鐧诲綍瓒呮椂
         $new_time = mktime();
         $timecut = $new_time - $ontime;
         if($timecut > '3600'){

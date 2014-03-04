@@ -1,17 +1,16 @@
 <?php
 /**
- * URL´¦ÀíÀà
+ * URLå¤„ç†ç±»
  */
 final class Route{
         public $url_query;
         public $url_type;
         public $route_url = array();
-
         public function __construct() {
-                $this->url_query = parse_url($_SERVER['REQUEST_URI']);//´Ëº¯Êı·µ»ØÒ»¸ö¹ØÁªÊı×é£¬°üº¬ÏÖÓĞ URL µÄ¸÷ÖÖ×é³É²¿·Ö¡£      
+                $this->url_query = parse_url($_SERVER['REQUEST_URI']);//æ­¤å‡½æ•°è¿”å›ä¸€ä¸ªå…³è”æ•°ç»„ï¼ŒåŒ…å«ç°æœ‰ URL çš„å„ç§ç»„æˆéƒ¨åˆ†ã€‚      
         }
         /**
-         * ÉèÖÃURLÀàĞÍ
+         * è®¾ç½®URLç±»å‹
          * @access      public
          */
         public function setUrlType($url_type = 2){
@@ -23,7 +22,7 @@ final class Route{
         }
 
         /**
-         * »ñÈ¡Êı×éĞÎÊ½µÄURL  
+         * è·å–æ•°ç»„å½¢å¼çš„URL  
          * @access      public
          */
         public function getUrlArray(){
@@ -44,7 +43,7 @@ final class Route{
                 }
         }
         /**
-         * ½«queryĞÎÊ½µÄURL×ª»¯³ÉÊı×é£¬ÆÕÍ¨Ä£Ê½index.php?c=controller&a=action&id=2
+         * å°†queryå½¢å¼çš„URLè½¬åŒ–æˆæ•°ç»„ï¼Œæ™®é€šæ¨¡å¼index.php?c=controller&a=action&id=2
          * @access      public
          */
         public function querytToArray(){
@@ -77,7 +76,7 @@ final class Route{
                 }   
         }
         /**
-         * ½«PATH_INFOµÄURLĞÎÊ½×ª»¯ÎªÊı×é£¬Â·¾¶Ä£Ê½£ºindex.php/controller/action/id/2
+         * å°†PATH_INFOçš„URLå½¢å¼è½¬åŒ–ä¸ºæ•°ç»„ï¼Œè·¯å¾„æ¨¡å¼ï¼šindex.php/controller/action/id/2
          * @access      public
          */
         public function pathinfoToArray(){

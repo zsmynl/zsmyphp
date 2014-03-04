@@ -1,6 +1,8 @@
 <?php
-/*配置文件
+/**
+ *config.php配置文件
  */
+define('IN_ZSM',true);
 /*数据库配置,二维数组,把相关的配置信息写到$CONFIG['system']这个二位数组中*/
 $CONFIG['system']['db'] = array(
     'db_host'         => 'localhost',
@@ -17,9 +19,7 @@ $CONFIG['system']['lib'] = array(
     'prefix'          => 'my'  //自定义类库文件前缀 
 );
 $CONFIG['system']['route'] = array(
-     'default_controller'  =>   'index',//系统默认控制器，indexcontroller.php。
-     'default_action'      =>   'index',//系统默认控制器，指的控制器的indexcontroller.php中的index方法。
-     'url_type'            =>   1   //定义url形式 
+     'default_controller'  =>   'index',//系统默认控制器
+     'default_action'      =>   'index',//系统默认方法
+     'url_type'            =>   1       //定义url形式
 );
-
-?>
